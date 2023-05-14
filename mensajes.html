@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mensaje1  div{
+            background-color: lightblue;
+            border-radius: 5%;
+            width: 400px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <label for="mensajes">Mensaje:</label>
+    <input type="text" name="mensaje" id="mensaje">
+    <button onclick="grabarMensaje()">Aceptar</button>
+    <div id="mensaje1"></div>
+
+    <script>
+        let mensajes = []
+        cargarMensajes()
+        function grabarMensaje() {
+            mensaje = document.getElementById("mensaje").value
+            mensajes.push(mensaje)
+            console.log(JSON.stringify(mensajes))
+
+            localStorage.setItem("mensajes", JSON.stringify(mensajes))
+            cargarMensajes()
+        }
+        function cargarMensajes() {
+            if (JSON.parse(localStorage.getItem("mensajes")) !== null){
+                mensajes=JSON.parse(localStorage.getItem("mensajes")) 
+            }else{
+                mensajes=[]
+            }
+            console.log(mensajes)
+            cad = ``
+            for (elemento of mensajes) {
+                cad = cad + ` <div id="divmensaje" >${elemento} </div>
+  `
+            }
+            document.getElementById("mensaje1").innerHTML = cad
+
+        }
+
+    </script>
+</body>
+
+</html>
